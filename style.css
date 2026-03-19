@@ -3,10 +3,10 @@ body, html {
     padding: 0;
     height: 100%;
     overflow: hidden;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Slide 1: Burgundy */
+/* Slide 1: Burgundy Theme */
 #slide1 {
     background-color: #800020;
     display: flex;
@@ -15,8 +15,12 @@ body, html {
     height: 100vh;
     color: white;
     text-align: center;
-    z-index: 2;
+    z-index: 10;
+    transition: opacity 1s ease, visibility 1s; /* Fade out effect */
 }
+
+h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+p { font-size: 1.2rem; opacity: 0.9; }
 
 #startBtn {
     margin-top: 2rem;
@@ -28,59 +32,80 @@ body, html {
     font-weight: bold;
     cursor: pointer;
     font-size: 1.1rem;
-    transition: 0.3s;
+    transition: transform 0.2s;
 }
 
-/* Slide 2: Reveal */
+#startBtn:hover { transform: scale(1.1); }
+
+/* Slide 2: The Permanent Reveal */
 #slide2 {
-    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100vh;
     background-color: #fffafa;
-    position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    opacity: 0; /* Starts hidden */
+    transition: opacity 1s ease 0.5s; /* Fades in after slide 1 fades out */
 }
 
-/* The Cat Image */
-#cat-messenger {
-    width: 150px; /* Adjust based on your PNG size */
-    position: absolute;
-    bottom: -200px;
-    transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* Flower Layout */
-.flower-container {
-    text-align: center;
-    opacity: 0;
-    transition: opacity 1s ease;
-}
-
-.bouquet-wrapper {
+#gift-composition {
     position: relative;
-    height: 300px;
-    width: 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Cat Positioning */
+#cat-img {
+    width: 200px; /* Adjust size of your custom cat */
+    height: auto;
+    z-index: 2;
+}
+
+/* Flower Positioning (Layering them "in front of" the cat) */
+.flowers-wrapper {
+    position: absolute;
+    top: 20px; /* Adjust this to put flowers near cat's paws/arms */
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .flower {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 250px;
+    max-width: 180px; /* Size of the flowers */
+    height: auto;
 }
 
-/* Make them overlap slightly like a real bouquet */
-#rose-img { z-index: 2; margin-left: -20px; }
-#lily-img { z-index: 1; margin-left: 20px; }
+/* Overlapping the rose and lily slightly like a bouquet */
+#rose-img {
+    margin-right: -40px;
+}
 
+#lily-img {
+    margin-left: -40px;
+}
+
+/* Final Text Style */
 #final-message {
     color: #800020;
     margin-top: 20px;
-    font-weight: bold;
+    z-index: 4;
 }
 
-.show-content {
+#final-message h2 { font-size: 2.5rem; margin-bottom: 0; }
+
+/* Visual Triggers for JS */
+.fade-out {
+    opacity: 0 !important;
+    visibility: hidden;
+}
+
+.fade-in {
     opacity: 1 !important;
 }
