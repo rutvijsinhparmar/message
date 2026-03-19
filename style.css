@@ -3,7 +3,7 @@ body, html {
     padding: 0;
     height: 100%;
     overflow: hidden;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Georgia', serif;
 }
 
 /* Slide 1: Burgundy */
@@ -22,32 +22,33 @@ body, html {
 #startBtn {
     margin-top: 2rem;
     padding: 15px 40px;
-    background-color: #D4AF37;
+    background-color: #D4AF37; /* Gold */
     color: #800020;
     border: none;
-    border-radius: 30px;
+    border-radius: 50px;
     font-weight: bold;
     cursor: pointer;
     font-size: 1.1rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Slide 2: The Bouquet Reveal */
+/* Slide 2: Off-White Final Slide */
 #slide2 {
     display: none;
     height: 100vh;
-    background-color: #F9F9F2; /* Off-White */
+    background-color: #FAF9F6; /* Premium Off-White */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 1s ease;
+    transition: opacity 1.2s ease;
 }
 
-#bouquet-container {
+#bouquet-holder {
     position: relative;
-    width: 400px;
-    height: 450px;
+    width: 300px;
+    height: 400px;
+    /* This creates the "base" where stems meet */
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -55,42 +56,44 @@ body, html {
 
 .flower {
     position: absolute;
-    width: 180px; 
+    width: 200px; /* Adjust size based on your PNGs */
     height: auto;
-    bottom: 50px;
-    transform-origin: bottom center;
-    /* Gentle wind effect */
-    animation: sway 4s ease-in-out infinite alternate;
-    animation-delay: var(--delay);
+    bottom: 60px;
+    transform-origin: bottom center; /* Stems stay together */
+    animation: windSway 5s ease-in-out infinite alternate;
 }
 
-.lily { z-index: 1; filter: brightness(0.95); }
-.rose { z-index: 2; }
+/* Layering & Real-Life Arrangement */
+.lily { z-index: 1; filter: brightness(0.95); } /* Lilies in back */
+.rose { z-index: 2; } /* Roses in front */
 
-/* Positioning the 10 flowers in a bunch */
-.flower:nth-child(1) { transform: rotate(-25deg); left: 10%; }
-.flower:nth-child(2) { transform: rotate(-10deg); left: 25%; }
-.flower:nth-child(3) { transform: rotate(10deg); left: 45%; }
-.flower:nth-child(4) { transform: rotate(25deg); left: 60%; }
+/* Positioning the 3 Lilies */
+.back-left   { transform: rotate(-25deg); left: -20px; animation-delay: 0s; }
+.back-right  { transform: rotate(25deg); right: -20px; animation-delay: 0.5s; }
+.back-center { transform: rotate(0deg); bottom: 80px; animation-delay: 0.2s; }
 
-.flower:nth-child(5) { transform: rotate(-15deg); left: 15%; bottom: 40px; }
-.flower:nth-child(6) { transform: rotate(-5deg); left: 30%; bottom: 30px; }
-.flower:nth-child(7) { transform: rotate(5deg); left: 45%; bottom: 35px; }
-.flower:nth-child(8) { transform: rotate(15deg); left: 55%; bottom: 45px; }
-.flower:nth-child(9) { transform: rotate(0deg); left: 35%; bottom: 60px; }
-.flower:nth-child(10) { transform: rotate(-8deg); left: 20%; bottom: 55px; }
+/* Positioning the 2 Roses (Nestled in the center) */
+.front-left  { transform: rotate(-10deg); left: 20px; bottom: 50px; animation-delay: 0.7s; }
+.front-right { transform: rotate(10deg); right: 20px; bottom: 50px; animation-delay: 0.3s; }
 
-@keyframes sway {
-    0% { transform: rotate(-2deg) translateX(-2px); }
-    100% { transform: rotate(2deg) translateX(2px); }
+/* Gentle Wind Animation */
+@keyframes windSway {
+    0% { transform: rotate(inherit) scale(1); }
+    100% { transform: rotate(calc(inherit + 3deg)) scale(1.02); }
 }
 
 #final-message {
     text-align: center;
     color: #800020;
-    margin-top: 20px;
+    margin-top: 40px;
+    animation: fadeInText 2s ease;
 }
 
-/* Logic classes */
+@keyframes fadeInText {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Toggle Classes */
 .show { display: flex !important; opacity: 1 !important; }
 .hide { opacity: 0; pointer-events: none; }
