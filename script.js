@@ -1,27 +1,86 @@
-const startBtn = document.getElementById('startBtn');
-const slide1 = document.getElementById('slide1');
-const slide2 = document.getElementById('slide2');
-const cat = document.getElementById('cat-messenger');
-const flowerContainer = document.querySelector('.flower-container');
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
 
-startBtn.addEventListener('click', () => {
-    // Hide Slide 1
-    slide1.style.display = 'none';
-    
-    // Show Slide 2
-    slide2.style.display = 'flex';
+/* Slide 1: Burgundy */
+#slide1 {
+    background-color: #800020;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    text-align: center;
+    z-index: 2;
+}
 
-    // 1. Cat slides up from bottom
-    setTimeout(() => {
-        cat.style.bottom = '50%';
-    }, 100);
+#startBtn {
+    margin-top: 2rem;
+    padding: 15px 40px;
+    background-color: #D4AF37; /* Gold */
+    color: #800020;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
 
-    // 2. After 2 seconds, cat fades and flowers appear
-    setTimeout(() => {
-        cat.style.opacity = '0';
-        cat.style.transform = 'scale(0.5)';
-        
-        // Show the flowers and message
-        flowerContainer.classList.add('show-flowers');
-    }, 2100); 
-});
+/* Slide 2: Reveal */
+#slide2 {
+    display: none;
+    height: 100vh;
+    background-color: #fffafa;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* The Cat Image */
+#cat-messenger {
+    width: 150px; /* Adjust based on your PNG size */
+    position: absolute;
+    bottom: -200px;
+    transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Flower Layout */
+.flower-container {
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.bouquet-wrapper {
+    position: relative;
+    height: 300px;
+    width: 300px;
+}
+
+.flower {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 250px;
+}
+
+/* Make them overlap slightly like a real bouquet */
+#rose-img { z-index: 2; margin-left: -20px; }
+#lily-img { z-index: 1; margin-left: 20px; }
+
+#final-message {
+    color: #800020;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.show-content {
+    opacity: 1 !important;
+}
