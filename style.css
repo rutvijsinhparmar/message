@@ -6,7 +6,7 @@ body, html {
     font-family: 'Arial', sans-serif;
 }
 
-/* Slide 1: Burgundy Theme */
+/* Slide 1: Burgundy */
 #slide1 {
     background-color: #800020;
     display: flex;
@@ -15,14 +15,8 @@ body, html {
     height: 100vh;
     color: white;
     text-align: center;
+    z-index: 2;
 }
-
-#slide1.hidden {
-    display: none;
-}
-
-h1 { font-size: 3rem; margin-bottom: 0.5rem; }
-p { font-size: 1.2rem; opacity: 0.9; }
 
 #startBtn {
     margin-top: 2rem;
@@ -37,9 +31,7 @@ p { font-size: 1.2rem; opacity: 0.9; }
     transition: 0.3s;
 }
 
-#startBtn:hover { transform: scale(1.1); }
-
-/* Slide 2: The Reveal */
+/* Slide 2: Reveal */
 #slide2 {
     display: none;
     height: 100vh;
@@ -50,33 +42,45 @@ p { font-size: 1.2rem; opacity: 0.9; }
     flex-direction: column;
 }
 
-/* Cat Animation Logic */
+/* The Cat Image */
 #cat-messenger {
-    font-size: 100px;
+    width: 150px; /* Adjust based on your PNG size */
     position: absolute;
-    bottom: -150px;
+    bottom: -200px;
     transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Flower Layout */
 .flower-container {
     text-align: center;
     opacity: 0;
-    transform: scale(0.8);
-    transition: all 1s ease;
+    transition: opacity 1s ease;
 }
 
-#bouquet {
-    max-width: 400px;
-    height: auto;
+.bouquet-wrapper {
+    position: relative;
+    height: 300px;
+    width: 300px;
 }
+
+.flower {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 250px;
+}
+
+/* Make them overlap slightly like a real bouquet */
+#rose-img { z-index: 2; margin-left: -20px; }
+#lily-img { z-index: 1; margin-left: 20px; }
 
 #final-message {
     color: #800020;
     margin-top: 20px;
+    font-weight: bold;
 }
 
-/* Visual Triggers */
-.show-flowers {
+.show-content {
     opacity: 1 !important;
-    transform: scale(1) !important;
 }
