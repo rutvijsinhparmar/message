@@ -6,7 +6,6 @@ body, html {
     font-family: 'Georgia', serif;
 }
 
-/* Slide 1: Burgundy */
 #slide1 {
     background-color: #800020;
     display: flex;
@@ -15,40 +14,49 @@ body, html {
     height: 100vh;
     color: white;
     text-align: center;
-    transition: opacity 0.8s ease;
     z-index: 10;
+    transition: all 0.8s ease-in-out;
 }
 
 #startBtn {
     margin-top: 2rem;
-    padding: 15px 40px;
-    background-color: #D4AF37; /* Gold */
-    color: #800020;
+    padding: 16px 45px;
+    background: linear-gradient(145deg, #d4af37, #b8962e);
+    color: #fff;
     border: none;
     border-radius: 50px;
     font-weight: bold;
     cursor: pointer;
     font-size: 1.1rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Slide 2: Off-White Final Slide */
+/* Slide 2: High-End Look */
 #slide2 {
     display: none;
     height: 100vh;
-    background-color: #FAF9F6; /* Premium Off-White */
+    background: radial-gradient(circle, #ffffff 0%, #FAF9F6 100%);
     flex-direction: column;
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 1.2s ease;
+    perspective: 1000px; /* Adds 3D depth */
 }
 
-#bouquet-holder {
+.bouquet-wrapper {
     position: relative;
-    width: 300px;
-    height: 400px;
-    /* This creates the "base" where stems meet */
+    width: 350px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+}
+
+#bouquet-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -56,44 +64,61 @@ body, html {
 
 .flower {
     position: absolute;
-    width: 200px; /* Adjust size based on your PNGs */
+    width: 220px;
     height: auto;
-    bottom: 60px;
-    transform-origin: bottom center; /* Stems stay together */
-    animation: windSway 5s ease-in-out infinite alternate;
+    bottom: 80px;
+    transform-origin: bottom center;
+    /* Soft shadow to make it look like it's in a 3D space */
+    filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.15));
 }
 
-/* Layering & Real-Life Arrangement */
-.lily { z-index: 1; filter: brightness(0.95); } /* Lilies in back */
-.rose { z-index: 2; } /* Roses in front */
+/* Multi-layered Breeze Animation */
+@keyframes breeze {
+    0% { transform: rotate(var(--rot)) translateY(0) scale(1); }
+    50% { transform: rotate(calc(var(--rot) + 2deg)) translateY(-5px) scale(1.01); }
+    100% { transform: rotate(calc(var(--rot) - 1deg)) translateY(2px) scale(1); }
+}
 
-/* Positioning the 3 Lilies */
-.back-left   { transform: rotate(-25deg); left: -20px; animation-delay: 0s; }
-.back-right  { transform: rotate(25deg); right: -20px; animation-delay: 0.5s; }
-.back-center { transform: rotate(0deg); bottom: 80px; animation-delay: 0.2s; }
+/* Specific Real-Life Placement */
+.lily { z-index: 1; filter: brightness(0.9) blur(0.5px) drop-shadow(5px 5px 10px rgba(0,0,0,0.1)); }
+.rose { z-index: 5; }
 
-/* Positioning the 2 Roses (Nestled in the center) */
-.front-left  { transform: rotate(-10deg); left: 20px; bottom: 50px; animation-delay: 0.7s; }
-.front-right { transform: rotate(10deg); right: 20px; bottom: 50px; animation-delay: 0.3s; }
+.back-l { --rot: -35deg; left: -30px; animation: breeze 6s ease-in-out infinite; }
+.back-r { --rot: 35deg; right: -30px; animation: breeze 7s ease-in-out infinite 0.5s; }
+.back-c { --rot: 0deg; bottom: 120px; animation: breeze 5.5s ease-in-out infinite 1s; }
 
-/* Gentle Wind Animation */
-@keyframes windSway {
-    0% { transform: rotate(inherit) scale(1); }
-    100% { transform: rotate(calc(inherit + 3deg)) scale(1.02); }
+.front-l { --rot: -12deg; left: 30px; bottom: 60px; animation: breeze 5s ease-in-out infinite 0.2s; }
+.front-r { --rot: 12deg; right: 30px; bottom: 60px; animation: breeze 6.5s ease-in-out infinite 0.8s; }
+
+/* The "Wrap" at the bottom to bundle the stems */
+.ribbon {
+    position: absolute;
+    bottom: 40px;
+    width: 60px;
+    height: 100px;
+    background: linear-gradient(to right, #800020, #a52a2a, #800020);
+    border-radius: 10px 10px 50px 50px;
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.bouquet-shadow {
+    position: absolute;
+    bottom: 20px;
+    width: 150px;
+    height: 20px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 50%;
+    filter: blur(5px);
 }
 
 #final-message {
     text-align: center;
-    color: #800020;
-    margin-top: 40px;
-    animation: fadeInText 2s ease;
+    color: #4a4a4a;
+    margin-top: 20px;
 }
 
-@keyframes fadeInText {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+#final-message h2 { font-style: italic; color: #800020; font-size: 2.2rem; }
 
-/* Toggle Classes */
-.show { display: flex !important; opacity: 1 !important; }
-.hide { opacity: 0; pointer-events: none; }
+.show { display: flex !important; animation: fadeIn 1.5s forwards; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
