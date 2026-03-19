@@ -3,10 +3,12 @@ const slide1 = document.getElementById('slide1');
 const slide2 = document.getElementById('slide2');
 
 startBtn.addEventListener('click', () => {
-    // 1. Fade out the Burgundy Slide
-    slide1.classList.add('fade-out');
-
-    // 2. Fade in the Cat & Flower Slide
-    // (CSS handles the delay so the flowers are visible immediately upon fade-in)
-    slide2.classList.add('fade-in');
+    // Hide slide 1
+    slide1.classList.add('hide');
+    
+    // After a short delay, show slide 2
+    setTimeout(() => {
+        slide1.style.display = 'none';
+        slide2.classList.add('show');
+    }, 800);
 });
